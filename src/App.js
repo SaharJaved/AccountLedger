@@ -6,9 +6,11 @@ import LedgerList from './components/ledgerList'
 class App extends Component {
   render() {
     return (
+    
       <div className="App">
         <LedgerList />
       </div>
+    
     );
   }
 }

@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import InputLedger from './inputLedger'
+
+
+
 export default class LedgerList extends Component {
+
     constructor(props) {
         super();
         this.state = {
-            ledgerList: [{ title: 'abc', credit: 200, debit: 400 }, { title: 'abc', credit: 0, debit: 200 }],
-            isShowAddTemp: false
+            ledgerList: [],
+            isShowAddTemp: false,
+            totalAmount: { debit: 0, credit: 0 },
+            showToast: false
 
         };
         this.showAddTemplate = this.showAddTemplate.bind(this);
@@ -17,8 +23,20 @@ export default class LedgerList extends Component {
             isShowAddTemp: true
         })
     }
-    addLedger(ev){
+    addLedger(ev) {
         console.log(ev)
+        let oldLedger = this.state.ledgerList
+        let showToster = false
+        oldLedger.push(ev)
+        let totalCredit = this.state.totalAmount.credit + parseInt(ev.credit)
+        let totalDebit = this.state.totalAmount.debit + parseInt(ev.debit)
+        if (totalCredit != totalDebit) {
+         console.log(totalCredit,totalDebit)
+            showToster = true;
+
+        }
+
+        this.setState({ ledgerList: oldLedger, isShowAddTemp: false, showToast: showToster, totalAmount: { credit: totalCredit, debit: totalDebit } })
     }
     changeInput(ev) {
         console.log('changer', ev.target.name)
@@ -32,7 +50,8 @@ export default class LedgerList extends Component {
 
     render() {
         return (
-            <div>            <table>
+            <div style={{ padding: 44 }} >           
+             <table >
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -51,14 +70,19 @@ export default class LedgerList extends Component {
                             </tr>
                         );
                     })}
-
+                    <tr><td>total</td><td>{this.state.totalAmount.credit}</td><td>{this.state.totalAmount.debit}</td></tr>
                 </tbody>
+
             </table>
 
+            {this.state.showToast &&
+                   <p >Debited and Credited total amount must be same</p>                }
+<br></br>            
                 <a className="btn-floating btn-small waves-effect waves-light red" onClick={this.showAddTemplate}><i className="material-icons">+</i></a>
                 {this.state.isShowAddTemp &&
                     <InputLedger addLedger={(ev) => { this.addLedger(ev) }} />
                 }
+
             </div>
 
         );

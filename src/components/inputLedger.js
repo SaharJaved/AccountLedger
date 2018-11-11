@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+
 export default class InputLedger extends Component {
   constructor(props) {
     super();
@@ -36,6 +37,7 @@ export default class InputLedger extends Component {
 
   render() {
     return (
+     
       <div style={{ margin: 10 }}>
         <form className="col s12 form-padding">
           <div className="row">
@@ -57,6 +59,7 @@ export default class InputLedger extends Component {
                 placeholder="accountTo"
                 onChange={this.changeInput}
                 name="accountTo"
+               
 
               />
               <label className="active" htmlFor="accountTo">accountTo</label>
@@ -68,7 +71,7 @@ export default class InputLedger extends Component {
                 placeholder="credit"
                 onChange={this.changeInput}
                 name="credit"
-
+                type="number"
               />
               <label className="active" htmlFor="credit">credit</label>
             </div>
@@ -79,7 +82,7 @@ export default class InputLedger extends Component {
                 placeholder="debit"
                 onChange={this.changeInput}
                 name="debit"
-
+                type="number"
               />
               <label className="active" htmlFor="debit">debit</label>
             </div>
@@ -95,6 +98,7 @@ export default class InputLedger extends Component {
 
         </form>
       </div>
+      
     );
   }
 }
